@@ -1,11 +1,11 @@
-import QuestionRepository from './questionRepository'
 import AuthRepository from './AuthRepository'
+import MenuRepository from './MenuRepository'
 const repositories = {
-    question: QuestionRepository,
     auth: AuthRepository,
+    menu: MenuRepository
 }
 export default {
     get(name) {
-        return repositories[name]
+        return new repositories[name]();
     }
 }

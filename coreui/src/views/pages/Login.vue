@@ -78,6 +78,7 @@ export default {
     },
     async login() {
       let self = this;
+      
       /*axios.post('/api/login', {
             email: self.email,
             password: self.password,
@@ -92,18 +93,19 @@ export default {
             self.showMessage = true;
             console.log(error);
           });*/
-      debugger;
       let response = await AuthRepository.login({
         email: self.email,
         password: self.password
       })
         .then(function(response) {
+          self.$store.dispatch('disableLoadingIndicator')
           self.email = "";
           self.password = "";
           localStorage.setItem("api_token", response.data.access_token);
           self.$router.push({ path: "notes" });
         })
         .catch(function(error) {
+          self.$store.dispatch('disableLoadingIndicator')
           self.message = "Incorrect E-mail or password";
           self.showMessage = true;
           console.log(error);

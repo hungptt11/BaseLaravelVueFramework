@@ -4,7 +4,8 @@ Vue.use(Vuex)
 
 const state = {
   sidebarShow: 'responsive',
-  sidebarMinimize: false
+  sidebarMinimize: false,
+  loadingIndicatorFlag: false
 }
 
 const mutations = {
@@ -18,10 +19,26 @@ const mutations = {
   },
   set (state, [variable, value]) {
     state[variable] = value
+  },
+  enableLoadingIndicator(state) {
+    state.loadingIndicatorFlag = true;
+  },
+  disableLoadingIndicator(state) {
+    state.loadingIndicatorFlag = false;
+  }
+}
+
+const actions = {
+  enableLoadingIndicator({ commit }) {
+    commit('enableLoadingIndicator')
+  },
+  disableLoadingIndicator({ commit }) {
+    commit('disableLoadingIndicator')
   }
 }
 
 export default new Vuex.Store({
   state,
-  mutations
+  mutations,
+  actions
 })

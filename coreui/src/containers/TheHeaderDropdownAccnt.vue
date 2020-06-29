@@ -66,7 +66,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import RepositoryFactory from "../repository/repositoryFactory";
+const AuthRepository = RepositoryFactory.get("auth");
 export default {
   name: 'TheHeaderDropdownAccnt',
   data () {
@@ -75,9 +76,9 @@ export default {
     }
   },
   methods:{
-    logout(){
+    async logout(){
       let self = this;
-      axios.post('/api/logout?token=' + localStorage.getItem("api_token"),{})
+      await AuthRepository.logout()
       .then(function (response) {
         self.$router.push({ path: '/login' });
       }).catch(function (error) {
